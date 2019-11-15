@@ -9,6 +9,8 @@ starting_room2 = rand(1..6)
 
 coin_toss = rand(1..2)
 
+game_over = false
+
 puts "Welcome to RUN!"
 
 sleep(1)
@@ -43,18 +45,48 @@ sleep(1)
 puts "Let's see who moves first. Flipping a cursed coin... if it's Heads it's you, #{player_1}, and Tails it's you, #{player_2}!"
 
 coin_toss
-
+player_one_turn = nil
 if coin_toss == 1
-    puts "It's Heads! You're up, #{player_1}. Choose a room number to move to out of the 6 that isn't #{starting_room1}:  "
+    player_one_turn = true
+    puts "It's Heads! You're up, #{player_1}. Choose a room number to move to (out of the 6) that isn't #{starting_room1}:  "
     room_choice1 = gets.chomp.to_i
+
 else 
-    puts "It's Tails! You're up, #{player_2}. Choose a room number to move to out of the 6 that isn't #{starting_room2}:"
+    coin_winner = player_2
+    player_one_turn = false
+    puts "It's Tails! You're up, #{player_2}. Choose a room number to move to (out of the 6) that isn't #{starting_room2}:"
     room_choice2 = gets.chomp.to_i
 end
 
+
+
 if room_choice1 == room_choice2
-    FIGHT
-else
-    cycle to next player turn
+    puts "*cue the dramatic music*" 
+    sleep(1)
+    puts "Oh no! The two worlds collide! FIGHT TO SURVIVE!"
+else 
+    sleep(1)
+    puts "The journey continues..."
 end
+
+until game_over == true
+
+    if player_one_turn = true
+        puts "Select your action #{player_1}: 1 - Attack, 2 - RUN!"
+        
+        if action_choice_1 = "1"
+            puts "You lash out wildly at #{player_2} and hit for #{hit_chance}!"
+        else
+            puts "You flee towards another room! Which room do you choose?"
+        end
+
+    else
+        
+    end
+
+
+end
+
+
+
 
