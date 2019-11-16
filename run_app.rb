@@ -1,3 +1,29 @@
+class Character
+
+    attr_accessor :name, :health
+
+    def initialize(name="Monster")
+        @health = 50
+        @name = name
+    end
+
+    def rest
+        @health += 10
+        if @health > 50
+            puts "You are at max health!"
+            @health = 50
+        end
+    end
+
+    def hit
+        @health -= hit
+        if @health <= 0
+            puts "GAME OVER MAN!" 
+            @health = 0
+        end 
+    end
+end
+
 
 quit = false
 
@@ -13,27 +39,25 @@ end
 # end
 
 while quit == false
-
-    player_health = 50
-    monster_health = 50
-
+    monster = Character.new()
+    
     current_room = rand(1..6)
     monster_room = nil
-
+    
     force_to_same_room = false
-
+    
     puts "Welcome to RUN!"
-
+    
     # sleep(1)
-
+    
     puts "Greetings, you are the hunted 'Survivor' in this horror story. Enter your name: "
-
-    player_name = gets.chomp.capitalize.to_s
+    
+    player = Character.new(gets.chomp.capitalize)
 
     # puts "Player 2, you are the brutal 'Terror'. Enter your name: "
 
 
-    puts "Ok, #{player_name}, let's descend into madness... or something spooky like that..."
+    puts "Ok, #{player.name}, let's descend into madness... or something spooky like that..."
 
 # sleep(1)
 
@@ -68,7 +92,7 @@ while quit == false
 #     puts "The journey continues..."
 # end
     
-    until monster_health <= 0 || player_health <= 0
+    until monster.health <= 0 || player.health <= 0
 
         monster_room = force_to_same_room ? current_room : rand(0..5)
 
@@ -80,20 +104,20 @@ while quit == false
                 
             when "1"
                 puts "You lash out wildly at monster and hit damage them #{hit = rand(5..45)} health points!"
-                monster_health -= hit
-                if monster_health <= 0
+                monster.health -= hit
+                if monster.health <= 0
                     
                     break
                 end
                 puts "The monster hits you back for #{hit = rand(5..45)}"
-                player_health -= hit
-                if player_health <= 0
+                player.health -= hit
+                if player.health <= 0
 
                     break
                 end
                 
-                puts "The monster's health is #{monster_health}"
-                puts "Your health is #{player_health}"
+                puts "The monster's health is #{monster.health}"
+                puts "Your health is #{player.health}"
                 
                 puts "Try to flee? Of course you do you don't want to die."
                 current_room, force_to_same_room = flee()
@@ -109,15 +133,14 @@ while quit == false
 
             when "1"
                 puts "You rest and regain 10 health."
-                player_health += 10
-                # player_health >= 50 puts "You're already at max health!" : player_health += 10
+                player.health += 10
                 force_to_same_room = true
 
             when "2"
                 puts "You look around..."
                 force_to_same_room = true
-                puts "The monster's health is #{monster_health}"
-                puts "Your health is #{player_health}"
+                puts "The monster's health is #{monster.health}"
+                puts "Your health is #{player.health}"
 
             when "3"
                 puts "You nervously choose another room! Which one do you choose?"
@@ -127,13 +150,13 @@ while quit == false
             end
         end
     end
-    puts "Monster_health: #{monster_health}"
-    puts "Play_health: #{player_health}"
+    puts "Monster's health: #{monster.health}"
+    puts "#{player.name}'s health: #{player.health}"
     
-    player_win = "The monster shreeks and falls to the floor dead. You did it, #{player_name}! YOU SURVIVED!"
-    monster_win = "You fall to the floor fatally wounded. The monster comes in for the kill. You black out from the pain. Game Over, #{player_name}!"
+    player_win = "The monster shreeks and falls to the floor dead. You did it, #{player.name}! YOU SURVIVED!"
+    monster_win = "You fall to the floor fatally wounded. The monster comes in for the kill. You black out from the pain. Game Over, #{player.name}!"
     
-    puts monster_health <= 0 ? player_win : monster_win
+    puts monster.health <= 0 ? player_win : monster_win
     
     puts "Do you want to quit - y/n?"
     user_input = gets.chomp
