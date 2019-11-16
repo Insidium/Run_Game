@@ -8,6 +8,8 @@ game_over = false
 
 force_to_same_room = false
 
+quit = false
+
 puts "Welcome to RUN!"
 
 # sleep(1)
@@ -59,60 +61,83 @@ def flee
     return current_room, force_to_same_room
 end
 
-until game_over == true
+while quit == false
 
-    monster_room = force_to_same_room ? current_room : rand(0..5)
+    
+    until game_over == true
 
-    puts "New loop"
+        monster_room = force_to_same_room ? current_room : rand(0..5)
 
-    if monster_room == current_room
-        puts "Monster here. Choose move: 1 attack 2 flee"
-        choice = gets.chomp
+        puts "New loop"
 
-        case choice 
-            
-        when "1"
-            puts "You lash out wildly at monster and hit damage them #{hit = rand(5..45)} health points!"
-            monster_health -= hit
-            if monster_health <= 0
-                game_over = true
+        if monster_room == current_room
+            puts "Monster here. Choose move: 1 attack 2 flee"
+            choice = gets.chomp
+
+            case choice 
+                
+            when "1"
+                puts "You lash out wildly at monster and hit damage them #{hit = rand(5..45)} health points!"
+                monster_health -= hit
+                if monster_health <= 0
+                    game_over = true
+                    break
+                end
+                puts "The monster hits you back for #{hit = rand(5..45)}"
+                player_health -= hit
+                if player_health <= 0
+                    game_over = true
+                    break
+                end
+                puts "game over is #{game_over}"
+                puts "Try to flee? Of course you do you don't want to die."
+                current_room, force_to_same_room = flee()
+            when "2"
+                current_room, force_to_same_room = flee()
             end
-            puts "The monster hits you back for #{hit = rand(5..45)}"
-            if player_health <= 0
-                game_over = true
+
+        else
+            puts "You enter an empty room. What do you do? 1. Rest, 2. Look around, 3. Move to next room (choose)"
+            option = gets.chomp
+
+            case option
+
+            when "1"
+                puts "You rest and regain 10 health."
+                player_health += 10
+                force_to_same_room = true
+
+            when "2"
+                puts "You look around..."
+                force_to_same_room == true
+                # monster_room = current_room
+
+            when "3"
+                puts "You nervously choose another room! Which one do you choose?"
+                current_room = gets.chomp.to_i - 1
+                force_to_same_room = false
+
             end
-            puts "game over is #{game_over}"
-            puts "Try to flee? Of course you do you don't want to die."
-            current_room, force_to_same_room = flee()
-        when "2"
-            current_room, force_to_same_room = flee()
-        end
-
-    else
-        puts "You enter an empty room. What do you do? 1. Rest, 2. Look around, 3. Move to next room (choose)"
-        option = gets.chomp
-
-        case option
-
-        when "1"
-            puts "You rest and regain 10 health."
-            player_health += 10
-            force_to_same_room = true
-
-        when "2"
-            puts "You look around..."
-            force_to_same_room == true
-            # monster_room = current_room
-
-        when "3"
-            puts "You nervously choose another room! Which one do you choose?"
-            current_room = gets.chomp.to_i - 1
-            force_to_same_room = false
-
         end
     end
-end
 
+    puts "Monter_health: #{monster_health}"
+    puts "Play_health: #{player_health}"
+    
+    player_win = "The monster shreeks and falls to the floor dead. You did it, #{player_name}! YOU SURVIVED!"
+    monster_win = "You fall to the floor fatally wounded. The monster comes in for the kill. You black out from the pain. Game Over, #{player_name}!"
+    
+    # monster_health <= 0 ? (puts player_win) : (puts monster_win)
+    
+    puts monster_health <= 0 ? player_win : monster_win
+    
+    puts "Do you want to quit - y/n?"
+    user_input = gets.chomp
+    
+    if user_input == "y"
+        quit == true
+    end
+end
 
     #     puts "Select your action #{player_name}: 1 - Attack, 2 - RUN!"
     #     action_choice_1 = gets.chomp.to_i
