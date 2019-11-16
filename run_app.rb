@@ -8,6 +8,10 @@ def flee
     return current_room, force_to_same_room
 end
 
+# def health_recap
+
+# end
+
 while quit == false
 
     player_health = 50
@@ -22,7 +26,7 @@ while quit == false
 
     # sleep(1)
 
-    puts "Player, you are the brave 'Survivor'. Enter your name: "
+    puts "Greetings, you are the hunted 'Survivor' in this horror story. Enter your name: "
 
     player_name = gets.chomp.capitalize.to_s
 
@@ -52,7 +56,7 @@ while quit == false
 
 # puts "It's Heads! You're up, #{player_name}. Choose a room number to move to (out of the 6) that isn't #{current_room}:  "
 
-    puts "Brave #{player_name}, choose a room number to move to (out of the 6): "
+    puts "Choose a room number to move to (out of the 6): "
     current_room = gets.chomp.to_i - 1
 
 # if room_choice1 == room_choice2
@@ -88,6 +92,9 @@ while quit == false
                     break
                 end
                 
+                puts "The monster's health is #{monster_health}"
+                puts "Your health is #{player_health}"
+                
                 puts "Try to flee? Of course you do you don't want to die."
                 current_room, force_to_same_room = flee()
             when "2"
@@ -103,13 +110,14 @@ while quit == false
             when "1"
                 puts "You rest and regain 10 health."
                 player_health += 10
+                # player_health >= 50 puts "You're already at max health!" : player_health += 10
                 force_to_same_room = true
 
             when "2"
                 puts "You look around..."
                 force_to_same_room = true
-                puts "monster health is #{monster_health}"
-                puts "player health is #{player_health}"
+                puts "The monster's health is #{monster_health}"
+                puts "Your health is #{player_health}"
 
             when "3"
                 puts "You nervously choose another room! Which one do you choose?"
@@ -119,8 +127,6 @@ while quit == false
             end
         end
     end
-end
-
     puts "Monster_health: #{monster_health}"
     puts "Play_health: #{player_health}"
     
@@ -133,8 +139,10 @@ end
     user_input = gets.chomp
     
     if user_input == "y"
-        quit == true
+        quit = true
     end
+end
+
 
 
     #     puts "Select your action #{player_name}: 1 - Attack, 2 - RUN!"
