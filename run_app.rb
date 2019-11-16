@@ -1,91 +1,86 @@
-player_1_health = rand(1..50)
-player_2_health = rand(1..50)
+player_health = rand(1..50)
+monster_health = rand(1..50)
 
-hit_chance = rand(5..45)
-
-starting_room1 = rand(1..6)
-
-starting_room2 = rand(1..6)
-
-coin_toss = rand(1..2)
+current_room = rand(1..6)
 
 game_over = false
 
 puts "Welcome to RUN!"
 
-sleep(1)
+# sleep(1)
 
 puts "Player 1, you are the brave 'Survivor'. Enter your name: "
 
-player_1 = gets.chomp.capitalize.to_s
+player_name = gets.chomp.capitalize.to_s
 
 puts "Player 2, you are the brutal 'Terror'. Enter your name: "
 
-player_2 = gets.chomp.capitalize.to_s
 
-puts "Ok, #{player_1} and #{player_2}, let's descend into madness... or something spooky like that..."
+puts "Ok, #{player_name}, let's descend into madness... or something spooky like that..."
 
-sleep(1)
+# sleep(1)
 
-puts "."
-sleep(1)
-puts "."
-sleep(1)
-puts "."
-sleep(1)
-puts "."
-sleep(1)
-puts "BOO!"
-sleep(1)
-puts "Got ya!"
-sleep(1)
-puts "Ok, let's go!"
-sleep(1)
+# puts "."
+# sleep(1)
+# puts "."
+# sleep(1)
+# puts "."
+# sleep(1)
+# puts "."
+# sleep(1)
+# puts "BOO!"
+# sleep(1)
+# puts "Got ya!"
+# sleep(1)
+# puts "Ok, let's go!"
+# sleep(1)
 
-puts "Let's see who moves first. Flipping a cursed coin... if it's Heads it's you, #{player_1}, and Tails it's you, #{player_2}!"
+# puts "Let's see who moves first. Flipping a cursed coin... if it's Heads it's you, #{player_1}, and Tails it's you, #{player_2}!"
 
-coin_toss
-player_one_turn = nil
-if coin_toss == 1
-    player_one_turn = true
-    puts "It's Heads! You're up, #{player_1}. Choose a room number to move to (out of the 6) that isn't #{starting_room1}:  "
-    room_choice1 = gets.chomp.to_i
+puts "It's Heads! You're up, #{player_name}. Choose a room number to move to (out of the 6) that isn't #{current_room}:  "
+current_room = gets.chomp.to_i - 1
 
-else 
-    coin_winner = player_2
-    player_one_turn = false
-    puts "It's Tails! You're up, #{player_2}. Choose a room number to move to (out of the 6) that isn't #{starting_room2}:"
-    room_choice2 = gets.chomp.to_i
-end
-
-
-
-if room_choice1 == room_choice2
-    puts "*cue the dramatic music*" 
-    sleep(1)
-    puts "Oh no! The two worlds collide! FIGHT TO SURVIVE!"
-else 
-    sleep(1)
-    puts "The journey continues..."
-end
+# if room_choice1 == room_choice2
+#     puts "*cue the dramatic music*" 
+#     sleep(1)
+#     puts "Oh no! The two worlds collide! FIGHT TO SURVIVE!"
+# else 
+#     sleep(1)
+#     puts "The journey continues..."
+# end
 
 until game_over == true
+    monster_room = rand(0..5)
 
-    if player_one_turn = true
-        puts "Select your action #{player_1}: 1 - Attack, 2 - RUN!"
-        
-        if action_choice_1 = "1"
-            puts "You lash out wildly at #{player_2} and hit for #{hit_chance}!"
-        else
+    if monster_room == current_room
+        puts "Monster here. Choose move: 1 attack 2 flee"
+        choice = gets.chomp
+
+        case choice 
+            
+        when "1"
+            puts "You lash out wildly at monster and hit them for #{rand(5..45)}!"
+
+        when "2"
             puts "You flee towards another room! Which room do you choose?"
+            current_room = gets.chomp.to_i - 1
         end
 
-    else
-        
     end
 
-
 end
+    #     puts "Select your action #{player_name}: 1 - Attack, 2 - RUN!"
+    #     action_choice_1 = gets.chomp.to_i
+                
+    #     if action_choice_1 == "1"
+    #             puts "You lash out wildly at #{player_2} and hit for #{hit_chance}!"
+    #     else
+    #         puts "You flee towards another room! Which room do you choose?"
+    #         player_1_move = gets.chomp.to_i
+    #     end
+    # end
+
+
 
 
 
