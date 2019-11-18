@@ -24,6 +24,17 @@ class Character
     end
 end
 
+class File
+    attr_accessor :show, :add
+
+    def initialize (reader, writer)
+        @reader = reader
+        @writer = writer
+    end
+
+end
+
+
 def flee
     puts "You flee towards another room! Which one do you choose?"
     current_room = gets.chomp.to_i - 1
@@ -45,8 +56,10 @@ until replay == false
     case gets.chomp
     when "1" #high scores
         puts "High Scores"
+        file = File.read("high_scores.txt")
     when "2" #recebts
         puts "Recents"
+        file = File.read("recent_games.txt")
     when "3" #play
         puts "Play"
         while quit == false
@@ -152,7 +165,8 @@ until replay == false
                 end
         
                 puts monster.health <= 0 ? player.win_message : monster.win_message
-                
+                File.write("recent_games.txt", "data...", mode: "a")
+                File.write("high_scores.txt", "data...", mode: "a")
                 puts "Do you want to replay - y/n?"
                 replay_input = gets.chomp
                 
