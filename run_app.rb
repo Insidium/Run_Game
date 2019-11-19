@@ -1,10 +1,11 @@
 class Character
 
-    attr_accessor :name, :health, :win_message
+    attr_accessor :name, :health, :win_message, :score
 
     def initialize(name="Monster")
         @health = 50
         @name = name
+        @score = 0
         @win_message = name == "Monster" ? "You fall to the floor fatally wounded. The monster comes in for the kill. You black out from the pain. Game Over!" : "The monster shreeks and falls to the floor dead. You did it, #{@name}! YOU SURVIVED!"
     end
 
@@ -42,6 +43,12 @@ def flee
     return current_room, force_to_same_room
 end
 
+def end_of_game(value, high, user)
+    puts user.win_message
+    File.write("recent_games.txt", "#{value == 'win' ? "Winner" : "Loser"}%^&", mode: "a")
+    File.write("high_scores.txt", "#{high}%^&", mode: "a")
+end
+
 quit = false
 
 replay = true
@@ -56,10 +63,10 @@ until replay == false
     case gets.chomp
     when "1" #high scores
         puts "High Scores"
-        file = File.read("high_scores.txt")
+        high_scores = File.read("high_scores.txt")
     when "2" #recent wins/losses
         puts "Recents"
-        file = File.read("recent_games.txt")
+        recent_games = File.read("recent_games.txt")
     when "3" #play
         while quit == false
         
@@ -163,9 +170,8 @@ until replay == false
                     end
                 end
         
-                puts monster.health <= 0 ? player.win_message : monster.win_message
-                File.write("recent_games.txt", "RECENT GAMES, ", mode: "a")
-                File.write("high_scores.txt", "HIGH SCORE, ", mode: "a")
+                monster.health <= 0 ? end_of_game('win', player.score, player) : end_of_game('lose', player.score, monster)
+
                 puts "Do you want to replay - y/n?"
                 replay_input = gets.chomp
                 
