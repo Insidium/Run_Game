@@ -27,9 +27,9 @@ end
 class File
     attr_accessor :show, :add
 
-    def initialize (reader, writer)
-        @reader = reader
-        @writer = writer
+    def initialize (show, add)
+        @show = show
+        @add = add
     end
 
 end
@@ -57,11 +57,10 @@ until replay == false
     when "1" #high scores
         puts "High Scores"
         file = File.read("high_scores.txt")
-    when "2" #recebts
+    when "2" #recent wins/losses
         puts "Recents"
         file = File.read("recent_games.txt")
     when "3" #play
-        puts "Play"
         while quit == false
         
                 monster = Character.new()
@@ -165,8 +164,8 @@ until replay == false
                 end
         
                 puts monster.health <= 0 ? player.win_message : monster.win_message
-                File.write("recent_games.txt", "data...", mode: "a")
-                File.write("high_scores.txt", "data...", mode: "a")
+                File.write("recent_games.txt", "RECENT GAMES, ", mode: "a")
+                File.write("high_scores.txt", "HIGH SCORE, ", mode: "a")
                 puts "Do you want to replay - y/n?"
                 replay_input = gets.chomp
                 
@@ -175,7 +174,7 @@ until replay == false
                 end
             end
     when "4" # quit
-        puts "GET OUT"
+        puts "A terrifying voice growls: 'GET OUT!'"
         replay = false
     end
 end
