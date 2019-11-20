@@ -12,8 +12,8 @@ class Character
 
     def initialize(name="Monster")
         @name = name
-        @health = @name == "Monster" ? 75 : 50 #debug
-        @score = 0
+        @health = @name == "Monster" ? 75 : 50 
+        @score = 0 #debug
         @win_message = name == "Monster" ? "You fall to the floor fatally wounded. The monster comes in for the kill. You black out from the pain. Game Over!".colorize(:red) : "The monster shreeks and falls to the floor dead. You did it, #{@name}! YOU SURVIVED!".colorize(:yellow)
     end
 
