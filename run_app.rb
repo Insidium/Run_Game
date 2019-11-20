@@ -16,12 +16,13 @@ class Character
         @name = name
         @health = @name == "Monster" ? 75 : 50 #debug
         @score = 0
-        @win_message = name == "Monster" ? "You fall to the floor fatally wounded. The monster comes in for the kill. You black out from the pain. Game Over!" : "The monster shreeks and falls to the floor dead. You did it, #{@name}! YOU SURVIVED!"
+        @win_message = name == "Monster" ? "You fall to the floor fatally wounded. The monster comes in for the kill. You black out from the pain. Game Over!".colorize(:red) : "The monster shreeks and falls to the floor dead. You did it, #{@name}! YOU SURVIVED!".colorize(:yellow)
     end
+
 
     # action that adds 10 health points to player if not at max health
     def rest
-        if @health > 50
+        if @health >= 50
             puts "You are already at max health!"
             @health = 50
         else 
@@ -37,17 +38,14 @@ class Character
             @health = 0
         end
     end
-
-    def tally(points)
-        @@points = damage + 25
-    end
 end
 
-# action that allows player to change room number and pre
+
+# action that allows player to change room number and prepare for the next interaction
 def flee
     puts "You flee towards another room! Which one do you choose?"
     
-    current_room = gets.chomp.to_i - 1
+    current_room = gets.chomp.to_i
     force_to_same_room = false
     return current_room, force_to_same_room
 end
@@ -63,13 +61,13 @@ quit = false
 replay = true
 
 until replay == false
-    puts pastel.red(font.write("RUN!" , letter_spacing: 4))
-
+    puts pastel.red.bold(font.write("TERROR !" , letter_spacing: 4))
+    sleep(2)
     puts "Menu:"
-    puts "1 - High Scores"
-    puts "2 - Recent Results"
-    puts "3 - Play Game"
-    puts "4 - Quit"
+    puts "1 - High Scores".colorize(:green)
+    puts "2 - Recent Results".colorize(:green)
+    puts "3 - Play Game".colorize(:green)
+    puts "4 - Quit".colorize(:green)
 
     case gets.chomp
     when "1" # display high scores
@@ -81,6 +79,7 @@ until replay == false
         recent_games = File.read("recent_games.txt").split("%^&")
         p recent_games
     when "3" #play the game
+        quit = false
         while quit == false
         
                 monster = Character.new()
@@ -90,39 +89,13 @@ until replay == false
                 
                 force_to_same_room = false
                 
-                puts "Welcome to RUN!"
+                puts "Welcome to TERROR!".colorize(:red)
                 
-                # sleep(1)
-                
-                puts "Greetings, you are the hunted 'Survivor' in this horror story. Enter your name: "
-                
-                player = Character.new(gets.chomp.capitalize)
-        
-                # puts "Player 2, you are the brutal 'Terror'. Enter your name: "
+                player = Character.new(prompt.ask("Greetings, you are the hunted 'Survivor' in this horror story. Enter your name: "))
         
                 puts "Ok, #{player.name}, let's descend into madness... or something spooky like that..."
         
-                # sleep(1)
-                # puts "."
-                # sleep(1)
-                # puts "."
-                # sleep(1)
-                # puts "."
-                # sleep(1)
-                # puts "."
-                # sleep(1)
-                # puts "BOO!"
-                # sleep(1)
-                # puts "Got ya!"
-                # sleep(1)
-                # puts "Ok, let's go!"
-                # sleep(1)
-        
-                # puts "Let's see who moves first. Flipping a cursed coin... if it's Heads it's you, #{player_1}, and Tails it's you, #{player_2}!"
-        
-                # puts "It's Heads! You're up, #{player_name}. Choose a room number to move to (out of the 6) that isn't #{current_room}:  "
-        
-                puts "You are in room #{current_room}. Choose another room number to move to (1 - 6): "
+                puts "You start in room #{current_room}. Choose another room number to move to (1 - 6): "
                 current_room = gets.chomp.to_i
                 until current_room > 0 and current_room <= 6 do
                     puts "That is not a valid choice. Please enter a number between 1 and 6"
@@ -134,7 +107,7 @@ until replay == false
                     monster_room = force_to_same_room ? current_room : rand(1..6)
         
                     if monster_room == current_room
-                        puts "Aaah! The Terror is here! Choose your move: 1 - Attack OR 2 - Flee"
+                        puts "Aaah! The Terror is here! Choose your move: 1 - Attack OR 2 - Flee".colorize(:red)
                         choice = gets.chomp
         
                         case choice 
@@ -147,17 +120,17 @@ until replay == false
                             player.hit(hit)
                             break if player.health <= 0
                             
-                            puts "The Terror's health is now #{monster.health}"
-                            puts "Your health is now #{player.health}"
+                            puts "The Terror's health is now #{monster.health}".colorize(:yellow)
+                            puts "Your health is now #{player.health}".colorize(:yellow)
                             
-                            puts "Try to flee? Of course! You do you don't want to DIE!"
+                            puts "Try to flee? Of course! You do you don't want to DIE!".colorize(:blue)
                             current_room, force_to_same_room = flee()
                         when "2"
                             current_room, force_to_same_room = flee()
                         end
         
                     else
-                        puts "You enter an empty, creepy room. What do you do? 1. Rest for a while, 2. Look around for help, 3. Move to another room"
+                        puts "You enter an empty, creepy room (room #{current_room}). What do you do? 1. Rest for a while, 2. Look around for help, 3. Move to another room".colorize(:blue)
                         option = gets.chomp
         
                         case option
@@ -167,10 +140,10 @@ until replay == false
                             force_to_same_room = true
         
                         when "2"
-                            puts "You look around..."
+                            puts "You look around...".colorize(:blue)
                             force_to_same_room = true
                         when "3"
-                            puts "You nervously choose another room! Which one do you choose?"
+                            puts "You nervously choose another room! Which one do you choose?".colorize(:blue)
                             current_room = gets.chomp.to_i - 1
                             force_to_same_room = false
         
@@ -180,10 +153,9 @@ until replay == false
         
                 monster.health <= 0 ? end_of_game('win', player.score, player) : end_of_game('lose', player.score, monster)
 
-                puts "Do you want to replay - y/n?"
-                replay_input = gets.chomp
+                replay_input = prompt.yes?("Do you want to replay?")
                 
-                if replay_input == "n"
+                if replay_input == false
                     quit = true
                 end
             end
@@ -193,5 +165,3 @@ until replay == false
         replay = false
     end
 end
-
-
