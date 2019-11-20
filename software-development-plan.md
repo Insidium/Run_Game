@@ -44,3 +44,13 @@ Alternatively, if the player chooses not to attack, they can flee to another roo
 
 An additional feature that has been added to the application is the ability to store the results of each game in two ways: as a win/loss declaration with the player’s/Terror’s name attached, and also the associated score accrued during these games. The basis for the scores are still in development but the structure in the arrays is in place. This feature uses the File class’s abilities of write and read to interact with these lists.
 
+## User Interaction and Experience
+
+XXXXXXXX
+
+## Control Flow Diagram
+
+This is the desired control flow for the game with all ideal features and gameplay mechanics implemented. 
+
+![](images/Control-Flow-Diagram.png)
+
