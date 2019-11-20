@@ -9,8 +9,6 @@ prompt = TTY::Prompt.new
 class Character
 
     attr_accessor :name, :health, :win_message, :score
-     
-    # @@points = points
 
     def initialize(name="Monster")
         @name = name
