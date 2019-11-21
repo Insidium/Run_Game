@@ -46,7 +46,13 @@ An additional feature that has been added to the application is the ability to s
 
 ## User Interaction and Experience
 
-XXXXXXXX
+#### How to get information on using this application
+
+The application is simple by design to ensure the minimal amount of difficulty to users. However, should you be unsure about how each feature works, feel free to consult the help file in the application's root directory or the feature breakdown above.
+
+#### Error handling and you
+
+While all effort has been put in to avoid unexpected errors with the application, there may be times when an input is invalid or causes an unintended result. Basic error handling has been implemented for issues like incorrect inputs like entering in a number other than 1 - 6 in room selection. You will get an error and request to try again.
 
 ## Control Flow Diagram
 

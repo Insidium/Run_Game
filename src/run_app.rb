@@ -15,7 +15,7 @@ replay = true
 
 until replay == false
     #game menu
-    puts pastel.red.bold(font.write("TERROR !" , letter_spacing: 4))
+    puts pastel.red.bold(font.write("T E R R O R !" , letter_spacing: 4))
     sleep(2)
     puts "Menu:"
     puts "1 - High Scores".colorize(:green)
@@ -50,7 +50,31 @@ until replay == false
                 player = Character.new(prompt.ask("Greetings, you are the hunted 'Survivor' in this horror story. Enter your name: "))
         
                 puts "Ok, #{player.name}, let's descend into madness... or something spooky like that..."
-        
+                
+                sleep(1)
+                puts "."
+                sleep(1)
+                puts "."
+                sleep(1)
+                puts "."
+                sleep(1)
+                puts "."
+                sleep(1)
+                puts "BOOOOO!"
+                sleep(3)
+                puts "Got ya!" 
+                sleep(3)
+                puts "Wow, geez... let's be all serious then..."
+                sleep(1)
+                puts "."
+                sleep(1)
+                puts "."
+                sleep(1)
+                puts "."
+                sleep(1)
+                puts "."
+                sleep(1)
+
                 puts "You start in room #{current_room}. Choose another room number to move to (1 - 6): "
                 current_room = gets.chomp.to_i
                 until current_room > 0 and current_room <= 6 do
