@@ -1,58 +1,13 @@
 require "colorize"
 require "tty-prompt"
 require "tty-font"
+require "./character_class.rb"
+require "./flee_method.rb"
+require "./end_of_game_method.rb"
 
 font = TTY::Font.new(:doom)
 pastel = Pastel.new
 prompt = TTY::Prompt.new
-
-class Character
-
-    attr_accessor :name, :health, :win_message, :score
-
-    def initialize(name="Monster")
-        @name = name
-        @health = @name == "Monster" ? 75 : 50 
-        @score = 0 #debug
-        @win_message = name == "Monster" ? "You fall to the floor fatally wounded. The monster comes in for the kill. You black out from the pain. Game Over!".colorize(:red) : "The monster shreeks and falls to the floor dead. You did it, #{@name}! YOU SURVIVED!".colorize(:yellow)
-    end
-
-
-    # action that adds 10 health points to player if not at max health
-    def rest
-        if @health >= 50
-            puts "You are already at max health!"
-            @health = 50
-        else 
-            @health += 10
-            puts "You regain 10 health points!"
-        end
-    end
-
-    # action that determines damage to player and monster characters and evaluates if reached 0 health
-    def hit(damage)
-        @health -= damage
-        if @health <= 0
-            @health = 0
-        end
-    end
-end
-
-
-# action that allows player to change room number and prepare for the next interaction
-def flee
-    puts "You flee towards another room! Which one do you choose?"
-    
-    current_room = gets.chomp.to_i
-    force_to_same_room = false
-    return current_room, force_to_same_room
-end
-
-def end_of_game(value, high, user)
-    puts user.win_message
-    File.write("recent_games.txt", "#{user.name} - #{value == 'win' ? "Winner!" : "You lost!"}%^&", mode: "a")
-    File.write("high_scores.txt", "#{user.name} - #{user.score}%^&", mode: "a")
-end
 
 quit = false
 
