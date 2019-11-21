@@ -4,7 +4,7 @@
 
 1. Download the repository from GitHub using your preferred method SSH or HTTPS. 
 
-2. Install the gem files and run the application by using the follow :
+2. Install files and run the application by using the following script :
 
 ```bundle install ```
 
