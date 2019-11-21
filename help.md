@@ -4,11 +4,9 @@
 
 1. Download the repository from GitHub using your preferred method SSH or HTTPS. 
 
-2. Install the gem files for the application by using bundler:
+2. Install the gem files and run the application by using the follow :
 
 ```bundle install ```
-
-3. Open the application's 'src' folder and type 'ruby run_app.rb' into your terminal to launch.
 
 ### Dependencies
 
