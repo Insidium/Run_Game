@@ -2,11 +2,11 @@
 
 ### Installation
 
-1. Download the repository from GitHub using your preferred method SSH or HTTPS. 
+1. Once you have the application on your machine, navigate to the 'src' directory inside its root folder in Terminal (or Ubuntu). 
 
 2. Install files and run the application by using the following script :
 
-```bundle install ```
+```./run.sh ```
 
 ### Dependencies
 
