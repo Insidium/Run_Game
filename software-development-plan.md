@@ -52,5 +52,5 @@ XXXXXXXX
 
 This is the desired control flow for the game with all ideal features and gameplay mechanics implemented. 
 
-![](images/Control-Flow-Diagram.png)
+![](docs/Control-Flow-Diagram.png)
 
