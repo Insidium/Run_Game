@@ -148,3 +148,5 @@ until replay == false
         replay = false
     end
 end
+
+# THANKS FOR PLAYING! Ryan :)
