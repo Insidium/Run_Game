@@ -14,6 +14,7 @@ quit = false
 replay = true
 
 until replay == false
+    #game menu
     puts pastel.red.bold(font.write("TERROR !" , letter_spacing: 4))
     sleep(2)
     puts "Menu:"
@@ -22,6 +23,7 @@ until replay == false
     puts "3 - Play Game".colorize(:green)
     puts "4 - Quit".colorize(:green)
 
+    #menu option selection actions
     case gets.chomp
     when "1" # display high scores
         puts "High Scores"
@@ -42,6 +44,7 @@ until replay == false
                 
                 force_to_same_room = false
                 
+                #welcome seq
                 puts "Welcome to TERROR!".colorize(:red)
                 
                 player = Character.new(prompt.ask("Greetings, you are the hunted 'Survivor' in this horror story. Enter your name: "))
@@ -54,7 +57,8 @@ until replay == false
                     puts "That is not a valid choice. Please enter a number between 1 and 6"
                     current_room = gets.chomp.to_i
                 end
-                
+
+                #game loop
                 until monster.health <= 0 || player.health <= 0
         
                     monster_room = force_to_same_room ? current_room : rand(1..6)
@@ -64,7 +68,7 @@ until replay == false
                         choice = gets.chomp
         
                         case choice 
-                            
+                            # attack mechanics with random hit impact on health
                         when "1"
                             puts "You lash out wildly at the Terror and wound it #{hit = rand(5..65)} health points!"
                             monster.hit(hit)
@@ -82,6 +86,7 @@ until replay == false
                             current_room, force_to_same_room = flee()
                         end
         
+                        #options once player is in a room
                     else
                         puts "You enter an empty, creepy room (room #{current_room}). What do you do? 1. Rest for a while, 2. Look around for help, 3. Move to another room".colorize(:blue)
                         option = gets.chomp
@@ -103,7 +108,8 @@ until replay == false
                         end
                     end
                 end
-        
+                
+                # logic to output to end_of_game logs
                 monster.health <= 0 ? end_of_game('win', player.score, player) : end_of_game('lose', player.score, monster)
 
                 replay_input = prompt.yes?("Do you want to replay?")
